@@ -16,6 +16,12 @@ API key is required. You can get free one at https://pro.coinmarketcap.com/ but 
 
 Source string format is `<quote-currency>:beancount_cryptoassets.coinmarketcap_api/<api-key>:<base-currency>:<quote-currency>`.
 
+## Token Sets
+
+This source uses undocumented [Token Sets](https://www.tokensets.com/) API which provides only USD prices.
+
+Source string format is `<quote-currency>:beancount_cryptoassets.tokensets/<base-currency>:USD`.
+
 ## Examples
 
 Evaluate source string with `bean-price`:

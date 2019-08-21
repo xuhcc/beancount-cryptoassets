@@ -4,16 +4,12 @@ import re
 from urllib.parse import urljoin, urlencode
 from urllib.request import Request, urlopen
 
-from beancount.core.number import D
 from beancount.prices import source
+
+from .utils import to_decimal
 
 TICKER_REGEXP = re.compile(r'^(?P<key>[\w-]+):(?P<base>\w+):(?P<quote>\w+)$')
 API_BASE_URL = 'https://pro-api.coinmarketcap.com/'
-
-
-def to_decimal(number, precision):
-    quant = D('0.' + '0' * precision)
-    return D(number).quantize(quant)
 
 
 def get_latest_quote(api_key, base_currency, quote_currency):
