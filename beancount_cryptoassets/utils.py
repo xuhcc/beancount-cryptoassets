@@ -2,5 +2,6 @@ from beancount.core.number import D
 
 
 def to_decimal(number, precision):
-    quant = D('0.' + '0' * precision)
-    return D(number).quantize(quant)
+    template = '{:.{p}g}'
+    number_str = template.format(float(number), p=precision)
+    return D(number_str)

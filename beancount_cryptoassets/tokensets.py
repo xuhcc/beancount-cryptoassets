@@ -21,7 +21,7 @@ def get_latest_price(set_symbol):
     response = urlopen(request)
     result = json.loads(response.read())
     price_str = result['rebalancing_set']['price_usd']
-    return to_decimal(price_str, 4)
+    return to_decimal(price_str, 6)
 
 
 class Source(source.Source):

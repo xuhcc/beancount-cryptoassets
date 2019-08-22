@@ -33,7 +33,7 @@ class Source(source.Source):
         api_key, base_currency, quote_currency = match.groups()
         data = get_latest_quote(api_key, base_currency, quote_currency)
 
-        price = to_decimal(data['price'], 4)
+        price = to_decimal(data['price'], 8)
         price_time = datetime.datetime.strptime(
             data['last_updated'],
             '%Y-%m-%dT%H:%M:%S.%fZ',
