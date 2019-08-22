@@ -18,9 +18,9 @@ Source string format is `<quote-currency>:beancount_cryptoassets.coinmarketcap_a
 
 ## Token Sets
 
-This source uses undocumented [Token Sets](https://www.tokensets.com/) API which provides only USD prices.
+This source uses undocumented [Token Sets](https://www.tokensets.com/) API which provides only USD prices. Historical prices are available only for the last week.
 
-Source string format is `<quote-currency>:beancount_cryptoassets.tokensets/<base-currency>:USD`.
+Source string format is `USD:beancount_cryptoassets.tokensets/<base-currency>:USD`.
 
 ## Examples
 
