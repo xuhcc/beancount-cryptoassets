@@ -24,6 +24,14 @@ No API key required, only latest quotes.
 
 Source string format is `<quote-currency>:beancount_cryptoassets.cryptonator/<base-currency>:<quote-currency>`.
 
+## Compound
+
+https://compound.finance/developers/api
+
+No API key required, only latest quotes. The price of the cToken's underlying asset in quote currency is calculated using the data from [Cryptonator API](https://www.cryptonator.com/api).
+
+Source string format is `<quote-currency>:beancount_cryptoassets.compound/<ctoken-address>:<quote-currency>`.
+
 ## Token Sets
 
 This source uses undocumented [Token Sets](https://www.tokensets.com/) API which provides only USD prices. Historical prices are available only for the last week.
