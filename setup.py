@@ -5,7 +5,7 @@ except ImportError:
 
 setup(
     name='beancount-cryptoassets',
-    version='1.2.0',
+    version='1.3.0',
     description='Beancount Cryptoassets',
     packages=['beancount_cryptoassets'],
     license='GPLv3',
