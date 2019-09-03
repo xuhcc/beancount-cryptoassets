@@ -16,6 +16,14 @@ API key is required. You can get free one at https://pro.coinmarketcap.com/ but 
 
 Source string format is `<quote-currency>:beancount_cryptoassets.coinmarketcap_api/<api-key>:<base-currency>:<quote-currency>`.
 
+## Cryptonator API
+
+https://www.cryptonator.com/api
+
+No API key required, only latest quotes.
+
+Source string format is `<quote-currency>:beancount_cryptoassets.cryptonator/<base-currency>:<quote-currency>`.
+
 ## Token Sets
 
 This source uses undocumented [Token Sets](https://www.tokensets.com/) API which provides only USD prices. Historical prices are available only for the last week.
