@@ -32,6 +32,8 @@ No API key required, only latest quotes. The price of the cToken's underlying as
 
 Source string format is `<quote-currency>:beancount_cryptoassets.compound/<ctoken-address>:<quote-currency>`.
 
+CTokens' addresses can be found here: https://compound.finance/ctokens
+
 ## Token Sets
 
 This source uses undocumented [Token Sets](https://www.tokensets.com/) API which provides only USD prices. Historical prices are available only for the last week.
