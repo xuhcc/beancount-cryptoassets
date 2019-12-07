@@ -24,6 +24,8 @@ def get_latest_price(base_currency, quote_currency):
     request = Request(url)
     response = urlopen(request)
     data = json.loads(response.read())
+    if data['success'] is not True:
+        raise ValueError(data['error'])
     price_str = data['ticker']['price']
     timestamp = data['timestamp']
     return price_str, timestamp
