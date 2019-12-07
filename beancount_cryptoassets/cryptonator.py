@@ -25,7 +25,12 @@ def get_latest_price(base_currency, quote_currency):
     response = urlopen(request)
     data = json.loads(response.read())
     if data['success'] is not True:
-        raise ValueError(data['error'])
+        error_message = '{0} ({1}:{2})'.format(
+            data['error'],
+            base_currency,
+            quote_currency,
+        )
+        raise ValueError(error_message)
     price_str = data['ticker']['price']
     timestamp = data['timestamp']
     return price_str, timestamp
