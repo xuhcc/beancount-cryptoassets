@@ -7,7 +7,7 @@ from urllib.request import Request, urlopen
 from beancount.prices import source
 
 from . import cryptonator
-from .utils import to_decimal
+from .utils import USER_AGENT, to_decimal
 
 TICKER_REGEXP = re.compile(r'^(?P<address>\w+):(?P<quote>\w+)$')
 API_BASE_URL = 'https://api.compound.finance'
@@ -26,7 +26,7 @@ def get_exchange_rate(token_address):
     request.add_header('Content-Type', 'application/json')
     request.add_header('Accept', 'application/json')
     # Requests without User-Agent header are blocked by CloudFlare
-    request.add_header('User-Agent', 'price-fetcher')
+    request.add_header('User-Agent', USER_AGENT)
     response = urlopen(request)
     data = json.loads(response.read())
     token_data = data['cToken'][0]

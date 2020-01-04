@@ -6,7 +6,7 @@ from urllib.request import Request, urlopen
 
 from beancount.prices import source
 
-from .utils import to_decimal
+from .utils import USER_AGENT, to_decimal
 
 TICKER_REGEXP = re.compile(r'^(?P<base>\w+):(?P<quote>USD)$')
 API_BASE_URL = 'https://api.tokensets.com/'
@@ -17,7 +17,7 @@ def get_data(set_symbol):
     url = urljoin(API_BASE_URL, path)
     request = Request(url)
     # Requests without User-Agent header are blocked by CloudFlare
-    request.add_header('User-Agent', 'price-fetcher')
+    request.add_header('User-Agent', USER_AGENT)
     response = urlopen(request)
     data = json.loads(response.read())
     return data

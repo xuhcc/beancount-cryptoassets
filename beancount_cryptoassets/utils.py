@@ -1,5 +1,7 @@
 from beancount.core.number import D
 
+USER_AGENT = 'price-fetcher'
+
 
 def to_decimal(number, precision):
     template = '{:.{p}g}'

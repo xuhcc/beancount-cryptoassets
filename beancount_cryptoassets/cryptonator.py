@@ -6,7 +6,7 @@ from urllib.request import Request, urlopen
 
 from beancount.prices import source
 
-from .utils import to_decimal
+from .utils import USER_AGENT, to_decimal
 
 TICKER_REGEXP = re.compile(r'^(?P<base>\w+):(?P<quote>\w+)$')
 API_BASE_URL = 'https://api.cryptonator.com'
@@ -22,6 +22,8 @@ def get_latest_price(base_currency, quote_currency):
     )
     url = urljoin(API_BASE_URL, path)
     request = Request(url)
+    # Requests without User-Agent header are blocked by Cryptonator
+    request.add_header('User-Agent', USER_AGENT)
     response = urlopen(request)
     data = json.loads(response.read())
     if data['success'] is not True:
