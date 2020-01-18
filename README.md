@@ -34,6 +34,12 @@ Source string format is `<quote-currency>:beancount_cryptoassets.compound/<ctoke
 
 CTokens' addresses can be found here: https://compound.finance/ctokens
 
+## bZx
+
+No API key required. The price of iToken is taken directly from iToken smart contract using the [Etherscan API](https://etherscan.io/apis#proxy). The price of the iToken's underlying asset in quote currency is calculated using the data from [Cryptonator API](https://www.cryptonator.com/api).
+
+Source string format is `<quote-currency>:beancount_cryptoassets.bzx/<itoken-address>:<quote-currency>`.
+
 ## Token Sets
 
 This source uses undocumented [Token Sets](https://www.tokensets.com/) API which provides only USD prices. Historical prices are available only for the last week.
