@@ -4,7 +4,7 @@ Price sources for [Beancount](http://furius.ca/beancount/) that provide prices f
 
 ## Installation
 
-Install latest version with `pip`:
+Install latest version with `pip` (python 3 is required):
 
 ```
 pip install https://github.com/xuhcc/beancount-cryptoassets/archive/master.zip
@@ -38,9 +38,9 @@ CTokens' addresses can be found here: https://compound.finance/ctokens
 
 Price source for [Fulcrum](https://fulcrum.trade/) iTokens.
 
-No API key required. The price of iToken is taken directly from iToken smart contract using the [Etherscan API](https://etherscan.io/apis#proxy). The price of the iToken's underlying asset in quote currency is calculated using the data from [Cryptonator API](https://www.cryptonator.com/api).
+Free [Infura](https://infura.io/) API key is required (the "Project ID"). The price of iToken is taken directly from iToken smart contract. The price of the iToken's underlying asset in quote currency is calculated using the data from [Cryptonator API](https://www.cryptonator.com/api).
 
-Source string format is `<quote-currency>:beancount_cryptoassets.bzx/<itoken-address>:<quote-currency>`.
+Source string format is `<quote-currency>:beancount_cryptoassets.bzx/<infura-project-id>:<itoken-address>:<quote-currency>`.
 
 ## Token Sets
 
