@@ -1,15 +1,16 @@
 import datetime
 import json
 import re
-from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 from beancount.prices import source
 
-from . import cryptonator
+from . import coingecko
 from .utils import to_decimal
 
-TICKER_REGEXP = re.compile(r'^(?P<api_key>[0-9a-f]{32}):(?P<address>0x[0-9a-f]{40}):(?P<quote>\w+)$')
+TICKER_REGEXP = re.compile(
+    r'^(?P<api_key>[0-9a-f]{32}):(?P<address>0x[0-9a-f]{40}):(?P<quote>\w+)$'
+)
 
 
 def eth_call(api_key, contract_address, tx_data, result_type):
@@ -72,7 +73,7 @@ class Source(source.Source):
         match = TICKER_REGEXP.match(ticker)
         api_key, token_address, quote_currency = match.groups()
         token_price, symbol = get_exchange_rate(api_key, token_address)
-        underlying_price, timestamp = cryptonator.get_latest_price(
+        underlying_price, timestamp = coingecko.get_latest_price(
             symbol[1:],  # iDAI -> DAI
             quote_currency,
         )

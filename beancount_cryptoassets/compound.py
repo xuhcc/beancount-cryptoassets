@@ -6,7 +6,7 @@ from urllib.request import Request, urlopen
 
 from beancount.prices import source
 
-from . import cryptonator
+from . import coingecko
 from .utils import USER_AGENT, to_decimal
 
 TICKER_REGEXP = re.compile(r'^(?P<address>\w+):(?P<quote>\w+)$')
@@ -43,7 +43,7 @@ class Source(source.Source):
         token_address, quote_currency = match.groups()
         token_price, symbol, underlying_symbol = \
             get_exchange_rate(token_address)
-        underlying_price, timestamp = cryptonator.get_latest_price(
+        underlying_price, timestamp = coingecko.get_latest_price(
             underlying_symbol,
             quote_currency,
         )
