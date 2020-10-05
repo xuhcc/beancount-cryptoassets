@@ -5,9 +5,7 @@ from functools import lru_cache
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
-from beancount.prices import source
-
-from .utils import to_decimal
+from .utils import to_decimal, source
 
 TICKER_REGEXP = re.compile(r'^(?P<base>\w+):(?P<quote>\w+)$')
 API_BASE_URL = 'https://api.coingecko.com/api/v3'

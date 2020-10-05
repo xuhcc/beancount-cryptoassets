@@ -4,9 +4,7 @@ import re
 from urllib.parse import urljoin, urlencode
 from urllib.request import Request, urlopen
 
-from beancount.prices import source
-
-from .utils import to_decimal
+from .utils import to_decimal, source
 
 TICKER_REGEXP = re.compile(r'^(?P<key>[\w-]+):(?P<base>\w+):(?P<quote>\w+)$')
 API_BASE_URL = 'https://pro-api.coinmarketcap.com/'

@@ -1,4 +1,8 @@
 from beancount.core.number import D
+try:
+    from beanprice import source
+except ImportError:
+    from beancount.prices import source
 
 USER_AGENT = 'price-fetcher'
 

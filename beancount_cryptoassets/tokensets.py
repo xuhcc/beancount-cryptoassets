@@ -4,9 +4,7 @@ import re
 from urllib.parse import urljoin
 from urllib.request import Request, urlopen
 
-from beancount.prices import source
-
-from .utils import USER_AGENT, to_decimal
+from .utils import USER_AGENT, to_decimal, source
 
 TICKER_REGEXP = re.compile(r'^(?P<base>\w+):(?P<quote>USD)$')
 API_BASE_URL = 'https://api.tokensets.com/'

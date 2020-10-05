@@ -3,10 +3,8 @@ import json
 import re
 from urllib.request import Request, urlopen
 
-from beancount.prices import source
-
 from . import coingecko
-from .utils import to_decimal
+from .utils import to_decimal, source
 
 TICKER_REGEXP = re.compile(
     r'^(?P<api_key>[0-9a-f]{32}):(?P<address>0x[0-9a-f]{40}):(?P<quote>\w+)$'

@@ -4,10 +4,8 @@ import re
 from urllib.parse import urljoin, urlencode
 from urllib.request import Request, urlopen
 
-from beancount.prices import source
-
 from . import coingecko
-from .utils import USER_AGENT, to_decimal
+from .utils import USER_AGENT, to_decimal, source
 
 TICKER_REGEXP = re.compile(r'^(?P<address>\w+):(?P<quote>\w+)$')
 API_BASE_URL = 'https://api.compound.finance'
