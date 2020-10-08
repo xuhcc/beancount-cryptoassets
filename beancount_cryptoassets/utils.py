@@ -1,8 +1,8 @@
 from beancount.core.number import D
 try:
-    from beanprice import source
+    from beanprice import source  # noqa: F401
 except ImportError:
-    from beancount.prices import source
+    from beancount.prices import source  # noqa: F401
 
 USER_AGENT = 'price-fetcher'
 

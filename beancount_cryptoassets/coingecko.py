@@ -12,16 +12,37 @@ API_BASE_URL = 'https://api.coingecko.com/api/v3'
 
 
 @lru_cache
-def _get_coin_list():
+def _get_coin_list() -> list:
     """
-    Get mapping between the symbol and coin ID
+    Get list of currencies supported by CoinGecko
     """
     path = '/coins/list/'
     url = API_BASE_URL + path
     request = Request(url)
-    response = urlopen(request)
-    data = json.loads(response.read())
-    return {item['symbol']: item['id'] for item in data}
+    response = urlopen(request).read()
+    data = json.loads(response)
+    return data
+
+
+@lru_cache
+def _get_currency_id(currency: str) -> str:
+    """
+
+    """
+    candidates = [coin['id'] for coin in _get_coin_list()
+                  if coin['symbol'] == currency.lower()]
+    url_params = {
+        'ids':  ','.join(candidates),
+        'vs_currency': 'USD',
+        'order': 'market_cap_desc',
+    }
+    url = f'{API_BASE_URL}/coins/markets?{urlencode(url_params)}'
+    request = Request(url)
+    response = urlopen(request).read()
+    data = json.loads(response)
+    if not data:
+        raise RuntimeError(response)
+    return data[0]['id']
 
 
 def get_latest_price(base_currency, quote_currency):
@@ -29,7 +50,7 @@ def get_latest_price(base_currency, quote_currency):
     https://www.coingecko.com/api/documentations/v3
     """
     path = '/simple/price/'
-    base_currency_id = _get_coin_list()[base_currency.lower()]
+    base_currency_id = _get_currency_id(base_currency)
     url_params = {
         'ids':  base_currency_id,
         'vs_currencies': quote_currency.lower(),
