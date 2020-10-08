@@ -27,7 +27,8 @@ def _get_coin_list() -> list:
 @lru_cache
 def _get_currency_id(currency: str) -> str:
     """
-
+    Find currency ID by its symbol.
+    If results are ambiguous, select currency with the highest market cap
     """
     candidates = [coin['id'] for coin in _get_coin_list()
                   if coin['symbol'] == currency.lower()]
