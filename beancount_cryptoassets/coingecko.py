@@ -42,6 +42,8 @@ def _get_currency_id(currency: str) -> str:
     data = json.loads(response)
     if not data:
         raise RuntimeError(response)
+    if len(data) == 1:
+        return data[0]['id']
     # Sort by market cap
     keyfunc = lambda item: -(item['market_cap_rank'] or 0)
     top_result = list(sorted(data, key=keyfunc))[0]
