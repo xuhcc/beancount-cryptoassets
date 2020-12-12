@@ -7,7 +7,7 @@ from urllib.request import Request, urlopen
 
 from .utils import to_decimal, source
 
-TICKER_REGEXP = re.compile(r'^(?P<base>\w+):(?P<quote>\w+)$')
+TICKER_REGEXP = re.compile(r'^(?P<base>[\w-]+):(?P<quote>\w+)$')
 API_BASE_URL = 'https://api.coingecko.com/api/v3'
 
 
@@ -35,7 +35,6 @@ def _get_currency_id(currency: str) -> str:
     url_params = {
         'ids':  ','.join(candidates),
         'vs_currency': 'USD',
-        'order': 'market_cap_desc',
     }
     url = f'{API_BASE_URL}/coins/markets?{urlencode(url_params)}'
     request = Request(url)
@@ -43,7 +42,12 @@ def _get_currency_id(currency: str) -> str:
     data = json.loads(response)
     if not data:
         raise RuntimeError(response)
-    return data[0]['id']
+    # Sort by market cap
+    keyfunc = lambda item: -(item['market_cap_rank'] or 0)
+    top_result = list(sorted(data, key=keyfunc))[0]
+    if top_result['market_cap_rank'] is None:
+        raise RuntimeError('Try to use currency ID instead of symbol.')
+    return top_result['id']
 
 
 def get_latest_price(base_currency, quote_currency):
@@ -51,7 +55,11 @@ def get_latest_price(base_currency, quote_currency):
     https://www.coingecko.com/api/documentations/v3
     """
     path = '/simple/price/'
-    base_currency_id = _get_currency_id(base_currency)
+    if base_currency.isupper():
+        # Try to find currency ID by its symbol
+        base_currency_id = _get_currency_id(base_currency)
+    else:
+        base_currency_id = base_currency
     url_params = {
         'ids':  base_currency_id,
         'vs_currencies': quote_currency.lower(),

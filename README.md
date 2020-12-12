@@ -18,6 +18,8 @@ No API key required, only latest quotes.
 
 Source string format is `<quote-currency>:beancount_cryptoassets.coingecko/<base-currency>:<quote-currency>`.
 
+`base_currency` can be either CoinGecko currency ID (e.g. `uniswap`) or a symbol (e.g. `UNI`).
+
 ## Coinmarketcap Pro API
 
 API key is required. You can get free one at https://pro.coinmarketcap.com/ but it grants access only to latest quotes.
