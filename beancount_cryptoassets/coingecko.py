@@ -1,6 +1,8 @@
 import datetime
 import json
+import os
 import re
+import time
 from functools import lru_cache
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -9,6 +11,16 @@ from .utils import to_decimal, source
 
 TICKER_REGEXP = re.compile(r'^(?P<base>[\w-]+):(?P<quote>\w+)$')
 API_BASE_URL = 'https://api.coingecko.com/api/v3'
+
+REQUEST_DELAY = float(os.environ.get('COINGECKO_REQUEST_DELAY', '0'))
+
+
+def _get_response(request):
+    if REQUEST_DELAY:
+        # Wait before sending request
+        time.sleep(REQUEST_DELAY)
+    response = urlopen(request).read()
+    return response
 
 
 @lru_cache
@@ -19,7 +31,7 @@ def _get_coin_list() -> list:
     path = '/coins/list/'
     url = API_BASE_URL + path
     request = Request(url)
-    response = urlopen(request).read()
+    response = _get_response(request)
     data = json.loads(response)
     return data
 
@@ -38,7 +50,7 @@ def _get_currency_id(currency: str) -> str:
     }
     url = f'{API_BASE_URL}/coins/markets?{urlencode(url_params)}'
     request = Request(url)
-    response = urlopen(request).read()
+    response = _get_response(request)
     data = json.loads(response)
     if not data:
         raise RuntimeError(response)
@@ -69,8 +81,8 @@ def get_latest_price(base_currency, quote_currency):
     }
     url = API_BASE_URL + path + '?' + urlencode(url_params)
     request = Request(url)
-    response = urlopen(request)
-    data = json.loads(response.read())
+    response = _get_response(request)
+    data = json.loads(response)
     price_float = data[base_currency_id][quote_currency.lower()]
     timestamp = data[base_currency_id]['last_updated_at']
     return price_float, timestamp
