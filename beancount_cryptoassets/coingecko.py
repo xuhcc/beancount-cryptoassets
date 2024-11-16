@@ -57,7 +57,7 @@ def _get_currency_id(currency: str) -> str:
     if len(data) == 1:
         return data[0]['id']
     # Sort by market cap
-    keyfunc = lambda item: -(item['market_cap_rank'] or 0)
+    keyfunc = lambda item: item['market_cap_rank'] or 100000
     top_result = list(sorted(data, key=keyfunc))[0]
     if top_result['market_cap_rank'] is None:
         raise RuntimeError('Try to use currency ID instead of symbol.')
