@@ -60,7 +60,9 @@ def _get_currency_id(currency: str) -> str:
     keyfunc = lambda item: item['market_cap_rank'] or 100000
     top_result = list(sorted(data, key=keyfunc))[0]
     if top_result['market_cap_rank'] is None:
-        raise RuntimeError('Try to use currency ID instead of symbol.')
+        raise RuntimeError(
+            f'Try to use currency ID instead of symbol ({currency}).'
+        )
     return top_result['id']
 
 
